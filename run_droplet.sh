@@ -14,6 +14,7 @@ run()
             echo "Creating output directory $out_dir";
             mkdir -p $out_dir
             move_files "$OUTPUT_DIR" "$out_dir"
+            mv $file $DONE_DIR
     done
 }
 
