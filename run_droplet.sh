@@ -1,5 +1,5 @@
 #!/bin/bash
-source ./test_run_droplet.cfg
+source ./run_droplet.cfg
 
 run()
 {
@@ -9,12 +9,45 @@ run()
             name_without_extension=$(basename $file | cut -f 1 -d '.')
             echo "Running droplet on $file ";
             eval "$DROPLET_PATH $file"
+            wait_for_x_files $OUTPUT_DIR $MAX_OUTPUT_FILES
             out_dir="$MOVE_DIR/$name_without_extension"
             echo "Creating output directory $out_dir";
             mkdir -p $out_dir
             move_files "$OUTPUT_DIR" "$out_dir"
     done
 }
+
+wait_for_x_files()
+{
+    DIR=$1
+    MAX_NUM_FILES=$2
+    MAX_NUM_FILES="$((MAX_NUM_FILES + 0))"
+    num_files=00
+    while [ $num_files -lt $MAX_NUM_FILES ]
+    do
+        num_files=`ls -l $DIR/*.jpg | wc -l`
+        num_files="$((num_files + 0))"
+        echo "Waiting for $MAX_NUM_FILES files current number of files=$num_files";
+        sleep 1;
+    done
+}
+
+files()
+{
+    DIR=$1
+    MAX_NUM_FILES=$2
+    MAX_NUM_FILES="$((MAX_NUM_FILES + 0))"
+    num_files=`ls -l $DIR/*.jpg | wc -l`
+    num_files="$((num_files + 0))"
+    echo "$DIR $MAX_NUM_FILES $num_files";
+    if [ $MAX_NUM_FILES -lt $num_files ]; 
+    then 
+        echo " Max num less than num";
+    else
+        echo "num less than max num";
+    fi
+}
+
 
 move_files()
 {
@@ -60,4 +93,4 @@ main()
     run $INPUT_DIR $DROPLET_PATH $OUTPUT_DIR $MOVE_DIR
 }
 
-main $INPUT_DIR $DROPLET_PATH $OUTPUT_DIR $MOVE_DIR
+#main $INPUT_DIR $DROPLET_PATH $OUTPUT_DIR $MOVE_DIR
