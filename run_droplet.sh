@@ -37,10 +37,10 @@ move_files()
 {
     SRC=$1
     DEST=$2
-    for file in $SRC/*.*;
+    for f in $SRC/*.*;
         do
-            echo "Moving $file to $DEST";
-            mv $file $DEST
+            echo "Moving $f to $DEST";
+            mv $f $DEST
     done
 }
 
