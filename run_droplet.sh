@@ -33,23 +33,6 @@ wait_for_x_files()
     done
 }
 
-files()
-{
-    DIR=$1
-    MAX_NUM_FILES=$2
-    MAX_NUM_FILES="$((MAX_NUM_FILES + 0))"
-    num_files=`ls -l $DIR/*.jpg | wc -l`
-    num_files="$((num_files + 0))"
-    echo "$DIR $MAX_NUM_FILES $num_files";
-    if [ $MAX_NUM_FILES -lt $num_files ]; 
-    then 
-        echo " Max num less than num";
-    else
-        echo "num less than max num";
-    fi
-}
-
-
 move_files()
 {
     SRC=$1
