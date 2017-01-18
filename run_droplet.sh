@@ -66,15 +66,11 @@ check_file()
 
 main()
 {
-    INPUT_DIR=$1
-    DROPLET_PATH=$2
-    OUTPUT_DIR=$3
-    MOVE_DIR=$4
     check_path $INPUT_DIR
     check_path $OUTPUT_DIR
     check_path $MOVE_DIR
     check_file $DROPLET_PATH
-    run $INPUT_DIR $DROPLET_PATH $OUTPUT_DIR $MOVE_DIR
+    run 
 }
 
-main $INPUT_DIR $DROPLET_PATH $OUTPUT_DIR $MOVE_DIR
+main 
