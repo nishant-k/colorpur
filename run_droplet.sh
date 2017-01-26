@@ -3,6 +3,7 @@ source ./run_droplet.cfg
 
 run()
 {
+    rm -f $OUTPUT_DIR/*
     for file in $INPUT_DIR/*.*; 
         do 
             echo "Picked up $file";
